@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Small Investment Plan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 450px;
+      background: white;
+      margin: auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2b7a78;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type=number] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #2b7a78;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #205e5b;
+    }
+    .result {
+      margin-top: 20px;
+      background: #e0f7f1;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>12+1 Small Investment Plan</h2>
+    
+    <label for="monthly">Monthly Deposit (₹500 - ₹1000):</label>
+    <input type="number" id="monthly" min="500" max="1000" value="500" />
+
+    <label for="referrals">No. of Referrals:</label>
+    <input type="number" id="referrals" min="0" value="0" />
+
+    <button onclick="calculate()">Calculate Return</button>
+
+    <div class="result" id="output" style="display:none;">
+      <p><strong>Total Deposit (12 months):</strong> ₹<span id="totalDeposit"></span></p>
+      <p><strong>Profit (20%):</strong> ₹<span id="profit"></span></p>
+      <p><strong>Total Return (13th month):</strong> ₹<span id="totalReturn"></span></p>
+      <p><strong>Referral Bonus (5% each month):</strong> ₹<span id="refBonus"></span></p>
+    </div>
+  </div>
+
+  <script>
+    function calculate() {
+      const monthly = parseInt(document.getElementById('monthly').value);
+      const referrals = parseInt(document.getElementById('referrals').value);
+
+      if (monthly < 500 || monthly > 1000) {
+        alert("Please enter a valid monthly amount between ₹500 and ₹1000.");
+        return;
+      }
+
+      const totalDeposit = monthly * 12;
+      const profit = Math.round(totalDeposit * 0.20);
+      const totalReturn = totalDeposit + profit;
+      const refBonus = referrals * 12 * Math.round(monthly * 0.05);
+
+      document.getElementById('totalDeposit').textContent = totalDeposit;
+      document.getElementById('profit').textContent = profit;
+      document.getElementById('totalReturn').textContent = totalReturn;
+      document.getElementById('refBonus').textContent = refBonus;
+
+      document.getElementById('output').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
