@@ -71,7 +71,7 @@
       <p><strong>Total Deposit (12 months):</strong> ₹<span id="totalDeposit"></span></p>
       <p><strong>Profit (20%):</strong> ₹<span id="profit"></span></p>
       <p><strong>Total Return (13th month):</strong> ₹<span id="totalReturn"></span></p>
-      <p><strong>Referral Bonus (5% each month):</strong> ₹<span id="refBonus"></span></p>
+      <p><strong>Referral Bonus (5% of total deposit per referral):</strong> ₹<span id="refBonus"></span></p>
     </div>
   </div>
 
@@ -86,16 +86,18 @@
       }
 
       const totalDeposit = monthly * 12;
-      const profit = Math.round(totalDeposit * 0.20);
+      const profit = totalDeposit * 0.20;
       const totalReturn = totalDeposit + profit;
-      const refBonus = referrals * 12 * Math.round(monthly * 0.05);
+      const refBonus = referrals * totalDeposit * 0.05; // 5% of total deposit per referral
 
-      document.getElementById('totalDeposit').textContent = totalDeposit;
-      document.getElementById('profit').textContent = profit;
-      document.getElementById('totalReturn').textContent = totalReturn;
-      document.getElementById('refBonus').textContent = refBonus;
+      document.getElementById('totalDeposit').textContent = totalDeposit.toLocaleString();
+      document.getElementById('profit').textContent = profit.toLocaleString(undefined, { minimumFractionDigits: 2 });
+      document.getElementById('totalReturn').textContent = totalReturn.toLocaleString(undefined, { minimumFractionDigits: 2 });
+      document.getElementById('refBonus').textContent = refBonus.toLocaleString(undefined, { minimumFractionDigits: 2 });
 
-      document.getElementById('output').style.display = 'block';
+      const outputDiv = document.getElementById('output');
+      outputDiv.style.display = 'block';
+      outputDiv.scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 
